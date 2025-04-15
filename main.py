@@ -127,7 +127,7 @@ def run_lstm_ensemble_forecast(data, reference_datetime, forecast_horizon=30,
                     "reference_datetime": pd.to_datetime(reference_datetime),
                     "family": "ensemble",
                     "variable": "Chla_ugL_mean",
-                    "model_id": "LSTM",
+                    "model_id": "example_ID",
                     "duration": "P1D",
                     "project_id": "vera4cast",
                     "depth_m": 1.6 if site == "fcre" else 1.5,
@@ -148,7 +148,7 @@ def save_forecast(forecast_df, daily):
     outdir = "model_output"
     os.makedirs(outdir, exist_ok=True)
     ref_date = daily["datetime"].max().date()
-    fname = f"{ref_date}-LSTM.csv"
+    fname = f"{ref_date}-example_ID.csv"
     path = os.path.join(outdir, fname)
     forecast_df.to_csv(path, index=False)
     print(f"Forecast saved to: {path}")
