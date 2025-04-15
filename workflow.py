@@ -10,9 +10,8 @@ This script performs the following:
   2. Verifies that R is installed on the system.
   3. Ensures that the R helper package "vera4castHelpers" is installed.
   4. Runs the core forecasting code (main.py) to generate forecasts.
-  5. Validates the forecast output using R helper functions from vera4castHelpers.
+  5. Validates and submits the forecast output using R helper functions from vera4castHelpers.
 
-Run this script to automatically execute the full forecasting process.
 """
 
 import os
