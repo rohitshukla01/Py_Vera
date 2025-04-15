@@ -93,7 +93,7 @@ def run_workflow():
     outdir = "model_output"
     forecast_file = None
     for fname in os.listdir(outdir):
-        if fname.endswith("-LSTM.csv"):
+        if fname.endswith("-example_ID.csv"):
             forecast_file = os.path.join(outdir, fname)
             break
     if forecast_file is None:
