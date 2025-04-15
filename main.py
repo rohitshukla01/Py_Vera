@@ -10,7 +10,7 @@ This script performs:
   - Saving the forecast output as a CSV file in the "model_output" folder.
 
 The forecast file is saved as:
-  daily-YYYY-MM-DD-LSTM.csv
+  YYYY-MM-DD-LSTM.csv
 """
 
 import os
@@ -26,8 +26,6 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import EarlyStopping
-
-# ---------------- Reproducibility ----------------
 np.random.seed(42)
 tf.random.set_seed(42)
 
@@ -150,7 +148,7 @@ def save_forecast(forecast_df, daily):
     outdir = "model_output"
     os.makedirs(outdir, exist_ok=True)
     ref_date = daily["datetime"].max().date()
-    fname = f"daily-{ref_date}-LSTM.csv"
+    fname = f"{ref_date}-LSTM.csv"
     path = os.path.join(outdir, fname)
     forecast_df.to_csv(path, index=False)
     print(f"Forecast saved to: {path}")
