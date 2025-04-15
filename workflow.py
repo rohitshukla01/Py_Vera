@@ -104,9 +104,10 @@ def run_workflow():
     
     print("Validating forecast output using R helper...")
     ro.r(f"vera4castHelpers::forecast_output_validator(forecast_file='{forecast_file}')")
-    # Submit the forecast by uncommenting the following line:
-    ro.r(f"vera4castHelpers::submit(forecast_file='{forecast_file}', first_submission=FALSE)")
     print("Forecast validation complete.")
+    # Submit the forecast by the following line:
+    ro.r(f"vera4castHelpers::submit(forecast_file='{forecast_file}', first_submission=FALSE)")
+    print("Forecast submission complete.")
 
 if __name__ == "__main__":
     run_workflow()
