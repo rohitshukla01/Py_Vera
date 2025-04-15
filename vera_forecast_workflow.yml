@@ -1,0 +1,40 @@
+name: VERA Forecast Workflow
+
+on:
+  schedule:
+    - cron: '0 10 * * *'
+  workflow_dispatch:
+
+jobs:
+  forecast:
+    runs-on: ubuntu-latest
+    container: rocker/ml-verse
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      OSN_KEY: ${{ secrets.OSN_KEY }}
+      OSN_SECRET: ${{ secrets.OSN_SECRET }}
+    steps:
+      - name: Configure safe directory
+        run: git config --system --add safe.directory '*'
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          set-safe-directory: '*'
+
+      - name: Setup Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas matplotlib scikit-learn tensorflow rpy2
+
+      - name: Setup R Dependencies
+        shell: Rscript {0}
+        run: |
+          remotes::install_deps(".", dep = TRUE)
+          install.packages("bench", repos = "https://cloud.r-project.org/")
+          install.packages("aws.s3", repos = "https://cloud.r-project.org/")
+
+      - name: Run Forecast Workflow
+        run: python workflow.py
+
