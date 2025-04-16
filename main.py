@@ -163,6 +163,6 @@ def main():
                                              window_size=30, epochs=5, batch_size=16)
     save_forecast(forecast_df, daily)
 
-if __name__ == "__main__":
-    main()
-
+#if __name__ == "__main__":
+#    main()
+main()
