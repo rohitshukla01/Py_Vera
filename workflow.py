@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 #!/usr/bin/env python
 """
@@ -108,6 +109,7 @@ def run_workflow():
     ro.r(f"vera4castHelpers::submit(forecast_file='{forecast_file}', first_submission=FALSE)")
     print("Forecast submission complete.")
 
-if __name__ == "__main__":
-    run_workflow()
+#if __name__ == "__main__":
+#    run_workflow()
+run_workflow()  
 
