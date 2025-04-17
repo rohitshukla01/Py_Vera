@@ -72,7 +72,7 @@ def create_sequences(series, window_size):
     return np.array(X), np.array(y)
 
 def run_lstm_ensemble_forecast(data, reference_datetime, forecast_horizon=30,
-                               ensemble_size=300, window_size=150, epochs=100, batch_size=32):
+                               ensemble_size=500, window_size=150, epochs=100, batch_size=32):
     print("Running LSTM ensemble forecast (full data)...")
     df = data.copy()
     df["datetime"] = pd.to_datetime(df["datetime"])
@@ -159,8 +159,8 @@ def main():
     ref_datetime = daily["datetime"].max()
     print("Forecast reference date:", ref_datetime)
     forecast_df = run_lstm_ensemble_forecast(daily, ref_datetime,
-                                             forecast_horizon=30, ensemble_size=10,
-                                             window_size=30, epochs=5, batch_size=16)
+                                             forecast_horizon=30, ensemble_size=500,
+                                             window_size=30, epochs=100, batch_size=32)
     save_forecast(forecast_df, daily)
 
 #if __name__ == "__main__":
