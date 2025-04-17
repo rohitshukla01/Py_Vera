@@ -160,7 +160,7 @@ def main():
     print("Forecast reference date:", ref_datetime)
     forecast_df = run_lstm_ensemble_forecast(daily, ref_datetime,
                                              forecast_horizon=30, ensemble_size=500,
-                                             window_size=30, epochs=100, batch_size=32)
+                                             window_size=150, epochs=100, batch_size=32)
     save_forecast(forecast_df, daily)
 
 #if __name__ == "__main__":
