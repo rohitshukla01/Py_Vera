@@ -72,7 +72,7 @@ def create_sequences(series, window_size):
     return np.array(X), np.array(y)
 
 def run_lstm_ensemble_forecast(data, reference_datetime, forecast_horizon=30,
-                               ensemble_size=500, window_size=150, epochs=100, batch_size=32):
+                               ensemble_size=50, window_size=30, epochs=100, batch_size=16):
     print("Running LSTM ensemble forecast (full data)...")
     df = data.copy()
     df["datetime"] = pd.to_datetime(df["datetime"])
@@ -96,8 +96,8 @@ def run_lstm_ensemble_forecast(data, reference_datetime, forecast_horizon=30,
             Dropout(0.2),
             Dense(1)
         ])
-        model.compile(optimizer=Adam(), loss="mse")
-        early_stop = EarlyStopping(monitor="loss", patience=5, restore_best_weights=True)
+        model.compile(optimizer=Adam(), loss="mae")
+        early_stop = EarlyStopping(monitor="loss", patience=10, restore_best_weights=True)
         model.fit(X, y, epochs=epochs, batch_size=batch_size, verbose=1, callbacks=[early_stop])
         print("Model training complete.")
         fitted = model.predict(X, verbose=0)
@@ -159,8 +159,8 @@ def main():
     ref_datetime = daily["datetime"].max()
     print("Forecast reference date:", ref_datetime)
     forecast_df = run_lstm_ensemble_forecast(daily, ref_datetime,
-                                             forecast_horizon=30, ensemble_size=500,
-                                             window_size=150, epochs=100, batch_size=32)
+                                             forecast_horizon=30, ensemble_size=50,
+                                             window_size=30, epochs=100, batch_size=16)
     save_forecast(forecast_df, daily)
 
 #if __name__ == "__main__":
